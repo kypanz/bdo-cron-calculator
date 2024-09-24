@@ -1,9 +1,35 @@
-const crons_amount = 1_350;
-const fails = 31;
+import readline from 'readline';
+
+let crons_amount = 0;
+let fails = 0;
 const price_per_cron = 3_000_000;
 
 interface IFormattePrice {
   value: string | number | null;
+}
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// START HERE
+main();
+
+// FUNCTIONS
+function main() {
+  try {
+    rl.question('Fails amount needed ? => ', (answerOne) => {
+      rl.question('Amount of crons needed ? => ', (answerTwo) => {
+        fails = parseInt(answerOne);
+        crons_amount = parseInt(answerTwo);
+        showResult();
+        rl.close();
+      })
+    })
+  } catch (error) {
+    console.error('fails on question');
+  }
 }
 
 function calculate() {
@@ -34,5 +60,3 @@ function formattePrice(data: IFormattePrice) {
     console.error('error on formatte price');
   }
 }
-
-showResult();
